@@ -1,19 +1,14 @@
 var express = require('./lib/node_modules/express');
-var socket = require('./lib/node_modules/socket.io');
-
-// App Setup
 var app = express();
-var server = app.listen(3000, () =>
+var http = require('http').Server(app);
+var io = require('./lib/node_modules/socket.io')(http);
+
+http.listen(3000, () =>
 {
   console.log('listening to requests on port 3000');
 });
 
-
-// Static Files
 app.use(express.static('public'));
-
-// Socket Setup
-var io = socket(server);
 
 io.on('connection', (socket) =>
 {

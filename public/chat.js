@@ -1,6 +1,6 @@
 // Make connection
 
-var socket = io.connect('http://localhost:3000');
+var socket = io();
 
 // Query Dom
 var handle = $('#handle');
