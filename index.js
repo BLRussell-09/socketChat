@@ -3,7 +3,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-http.listen(3000, () =>
+http.listen(process.env.PORT || 3000, () =>
 {
   console.log('listening to requests on port 3000');
 });
