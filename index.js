@@ -1,7 +1,7 @@
-var express = require('./lib/node_modules/express');
+var express = require('express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('./lib/node_modules/socket.io')(http);
+var io = require('socket.io')(http);
 
 http.listen(3000, () =>
 {
