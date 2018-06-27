@@ -1,6 +1,6 @@
 // Make connection
 
-var socket = io();
+var socket = io.connect();
 
 // Query Dom
 var handle = $('#handle');
@@ -13,9 +13,13 @@ var feedback = $('#feedback');
 
 btn.click(() =>
 {
+  if (message.val().length > 70 )
+  {
+    message.length = 70;
+  }
   socket.emit('chat',
   {
-    message: message.val(),
+    message: message.val().replace(/[\W_]+/g," "),
     handle : handle.val()
   });
 });
@@ -26,7 +30,7 @@ message.keypress((e) =>
   {
     socket.emit('chat',
     {
-      message: message.val(),
+      message: message.val().replace(/[\W_]+/g," "),
       handle : handle.val()
     });
   };
@@ -45,7 +49,8 @@ message.keypress((e) =>
 socket.on('chat', (data) =>
 {
   feedback.html('');
-  output.append(`<p><strong>${data.handle}:</strong> ${data.message}</p>`);
+  console.log(data)
+  output.append(`<p><strong>${data.handle}:</strong> ${String(data.message)}</p>`);
 });
 
 socket.on('typing', (data) =>
